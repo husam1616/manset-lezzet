@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manşet Lezzet | Lezzetli Menülerimizi Keşfedin</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome İkonları -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Cinzel, Playfair Display & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <!-- Özel Tema & Renk Konfigürasyonu -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#0F1110',
+                        charcoal: '#171A18',
+                        cardDark: '#1E2220',
+                        gold: '#E5B94C',
+                        goldLight: '#F7D774',
+                        goldDark: '#B88924',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Cinzel', 'serif'],
+                        serifTitle: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0F1110;
+            color: #F5F5F4;
+        }
+        .gold-text-gradient {
+            background: linear-gradient(135deg, #F7D774 0%, #E5B94C 50%, #C4932B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-btn-gradient {
+            background: linear-gradient(135deg, #F7D774 0%, #E5B94C 55%, #C4932B 100%);
+            color: #0F1110;
+            transition: all 0.25s ease;
+        }
+        .gold-btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(229, 185, 76, 0.45);
+        }
+        .menu-leader {
+            flex-grow: 1;
+            border-bottom: 2px dotted rgba(229, 185, 76, 0.35);
+            margin: 0 12px;
+            position: relative;
+            top: -5px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gold selection:text-obsidian overflow-x-hidden">
+
+    <!-- ==================== ÜST GEZİNTİ ÇUBUĞU (NAVBAR) ==================== -->
+    <header class="sticky top-0 z-40 bg-obsidian/95 backdrop-blur-md border-b border-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+
+                <!-- Marka Logosu -->
+                <button type="button" onclick="switchPage('anasayfa')" class="flex items-center gap-3 group text-left cursor-pointer">
+                    <div class="w-10 h-10 rounded-full bg-charcoal border border-gold/50 flex items-center justify-center text-gold shadow-lg group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-star text-sm"></i>
+                    </div>
+                    <div>
+                        <span class="font-serifTitle text-2xl sm:text-3xl font-bold gold-text-gradient tracking-wide block leading-none">
+                            Manşet Lezzet
+                        </span>
+                        <span class="text-[10px] uppercase tracking-[0.25em] text-neutral-400 block mt-1">
+                            Nilüfer • Bursa
+                        </span>
+                    </div>
+                </button>
+
+                <!-- Masaüstü Menü Linkleri (2 Ana Sayfa Geçişi + Adres) -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <button type="button" onclick="switchPage('anasayfa')" data-nav="anasayfa" class="nav-link text-sm font-bold text-gold hover:text-goldLight transition-colors tracking-wide cursor-pointer">
+                        Ana Sayfa
+                    </button>
+                    <button type="button" onclick="switchPage('menu')" data-nav="menu" class="nav-link text-sm font-medium text-neutral-300 hover:text-gold transition-colors tracking-wide cursor-pointer">
+                        Menü
+                    </button>
+                    <a href="#iletisim" class="text-sm font-medium text-neutral-300 hover:text-gold transition-colors tracking-wide">
+                        Adres & Konum
+                    </a>
+                </nav>
+
+                <!-- Sağ Aksiyon Butonu -->
+                <div class="flex items-center gap-3">
+                    <button type="button" onclick="openPlatformModal()" class="gold-btn-gradient px-5 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold tracking-wide shadow-lg flex items-center gap-2 cursor-pointer">
+                        <span>Sipariş Ver</span>
+                        <i class="fa-solid fa-utensils text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobil Alt Gezinti Sekmeleri -->
+            <div class="flex md:hidden items-center justify-center gap-6 py-2.5 border-t border-white/5 text-xs font-semibold">
+                <button type="button" onclick="switchPage('anasayfa')" data-nav="anasayfa" class="nav-link text-gold font-bold cursor-pointer">Ana Sayfa</button>
+                <button type="button" onclick="switchPage('menu')" data-nav="menu" class="nav-link text-neutral-300 hover:text-gold cursor-pointer">Menü & Fiyatlar</button>
+                <a href="#iletisim" class="text-neutral-300 hover:text-gold">Adres</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== 1. SAYFA: ANA SAYFA (HERO & İMZA LEZZETLER) ==================== -->
+    <section id="anasayfa" class="relative pt-10 pb-20 sm:pt-16 sm:pb-28 overflow-hidden bg-gradient-to-b from-charcoal via-obsidian to-obsidian border-b border-gold/20">
+        <!-- Arka Plan Altın Parıltı Efektleri -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gold/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+            <!-- Müşteri Memnuniyeti Rozeti -->
+            <div class="flex justify-center mb-6">
+                <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-cardDark/90 border border-gold/30 text-xs sm:text-sm text-neutral-200 shadow-md">
+                    <span class="flex items-center text-gold gap-1">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="font-bold">4.8</span>
+                    </span>
+                    <span class="text-neutral-600">|</span>
+                    <span>Fethiye Mh. Nilüfer'in Favori Lezzet Durağı</span>
+                </div>
+            </div>
+
+            <!-- Ana Başlık (Tabeladaki Yıldızlı Tasarıma Uygun) -->
+            <div class="text-center max-w-4xl mx-auto mb-14">
+                <div class="flex items-center justify-center gap-3 sm:gap-5 mb-3">
+                    <i class="fa-solid fa-star text-gold text-lg sm:text-2xl animate-pulse"></i>
+                    <h1 class="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold gold-text-gradient tracking-wider uppercase leading-tight">
+                        LEZZETLİ MENÜLERİMİZİ<br class="hidden sm:inline"> KEŞFEDİN
+                    </h1>
+                    <i class="fa-solid fa-star text-gold text-lg sm:text-2xl animate-pulse"></i>
+                </div>
+
+                <!-- Altın Dekoratif Ayırıcı Çizgi -->
+                <div class="flex items-center justify-center gap-3 my-5">
+                    <div class="h-[2px] w-20 sm:w-36 bg-gradient-to-r from-transparent to-gold"></div>
+                    <i class="fa-solid fa-diamond text-gold text-xs"></i>
+                    <div class="h-[2px] w-20 sm:w-36 bg-gradient-to-l from-transparent to-gold"></div>
+                </div>
+
+                <p class="text-neutral-300 text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                    Günlük taze hazırlanan <span class="text-gold font-semibold">tereyağlı tavuklu pilav</span>, bol malzemeli <span class="text-gold font-semibold">İzmir kumru</span> ve doyurucu <span class="text-gold font-semibold">et burger</span> çeşitlerimizle sıcak lezzet kapınızda.
+                </p>
+
+                <!-- Hızlı Yönlendirme Butonları -->
+                <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+                    <button type="button" onclick="switchPage('menu')" class="gold-btn-gradient px-7 py-3.5 rounded-full font-bold text-sm sm:text-base shadow-xl flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Tüm Menüyü İncele</span>
+                    </button>
+                    <a href="#iletisim" class="px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base border border-gold/40 text-gold hover:bg-gold/10 transition flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Yol Tarifi Al</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- İmza Lezzetler Vitrini (3 Öne Çıkan Ürün) -->
+            <div id="featured-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-8">
+                <!-- Öne çıkan ürünler menu.json dosyasından otomatik yüklenir -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 2. SAYFA: MENÜMÜZ (DİJİTAL FİYAT LİSTESİ) ==================== -->
+    <section id="menu" class="hidden py-12 sm:py-20 bg-obsidian relative min-h-[75vh]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Ana Sayfaya Dönüş Butonu -->
+            <div class="mb-6 flex items-center justify-between">
+                <button type="button" onclick="switchPage('anasayfa')" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-charcoal border border-gold/30 text-gold hover:bg-gold hover:text-obsidian text-xs sm:text-sm font-semibold transition cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Ana Sayfaya Dön</span>
+                </button>
+                <span class="text-xs text-neutral-500 hidden sm:inline">Manşet Lezzet Dijital Menü</span>
+            </div>
+
+            <!-- Bölüm Başlığı -->
+            <div class="text-center mb-10">
+                <span class="text-gold uppercase tracking-[0.25em] text-xs font-bold block mb-2">
+                    Güncel Fiyat Listemiz
+                </span>
+                <div class="flex items-center justify-center gap-4">
+                    <i class="fa-solid fa-star text-gold text-sm"></i>
+                    <h2 class="font-display text-3xl sm:text-5xl font-extrabold gold-text-gradient tracking-wider uppercase">
+                        MENÜMÜZ
+                    </h2>
+                    <i class="fa-solid fa-star text-gold text-sm"></i>
+                </div>
+                <div class="flex items-center justify-center gap-2 mt-4">
+                    <div class="h-[1px] w-24 bg-gradient-to-r from-transparent to-gold"></div>
+                    <div class="w-2 h-2 rotate-45 bg-gold"></div>
+                    <div class="h-[1px] w-24 bg-gradient-to-l from-transparent to-gold"></div>
+                </div>
+                <p class="text-neutral-400 text-sm mt-4 max-w-xl mx-auto">
+                    Online sipariş vermek için <span class="text-gold font-medium">Sipariş Ver</span> butonundan Yemeksepeti veya Uber Eats platformunu seçebilirsiniz.
+                </p>
+            </div>
+
+            <!-- Kategori Filtre Sekmeleri -->
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
+                <button type="button" onclick="filterMenu('all')" data-filter="all" class="filter-btn active px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-gold text-obsidian transition cursor-pointer">
+                    Tümü
+                </button>
+                <button type="button" onclick="filterMenu('ana')" data-filter="ana" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-charcoal text-neutral-300 border border-gold/25 hover:border-gold transition cursor-pointer">
+                    Burger & Ana Lezzetler
+                </button>
+                <button type="button" onclick="filterMenu('pilav')" data-filter="pilav" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-charcoal text-neutral-300 border border-gold/25 hover:border-gold transition cursor-pointer">
+                    Tereyağlı Pilavlar
+                </button>
+                <button type="button" onclick="filterMenu('tost')" data-filter="tost" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-charcoal text-neutral-300 border border-gold/25 hover:border-gold transition cursor-pointer">
+                    Tost & Atıştırmalık
+                </button>
+                <button type="button" onclick="filterMenu('icecek')" data-filter="icecek" class="filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-charcoal text-neutral-300 border border-gold/25 hover:border-gold transition cursor-pointer">
+                    İçecekler
+                </button>
+            </div>
+
+            <!-- İki Sütunlu Altın Çerçeveli Menü Panosu -->
+            <div class="bg-charcoal/90 border border-gold/30 rounded-3xl p-6 sm:p-10 shadow-2xl relative">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+
+                    <!-- Sol Sütun: Yiyecekler -->
+                    <div id="food-column" class="lg:col-span-7">
+                        <div class="flex items-center gap-3 pb-3 mb-4 border-b border-gold/25">
+                            <i class="fa-solid fa-utensils text-gold"></i>
+                            <h3 class="font-serifTitle text-xl sm:text-2xl font-bold text-gold tracking-wide">
+                                Yiyecekler
+                            </h3>
+                        </div>
+                        <div id="food-list" class="space-y-1"></div>
+                    </div>
+
+                    <!-- Sağ Sütun: İçecekler & Sipariş Kutusu -->
+                    <div class="lg:col-span-5 flex flex-col justify-between lg:border-l lg:border-gold/20 lg:pl-8">
+                        <div id="drink-column">
+                            <div class="flex items-center gap-3 pb-3 mb-4 border-b border-gold/25">
+                                <i class="fa-solid fa-mug-hot text-gold"></i>
+                                <h3 class="font-serifTitle text-xl sm:text-2xl font-bold text-gold tracking-wide">
+                                    İçecekler
+                                </h3>
+                            </div>
+                            <div id="drink-list" class="space-y-1"></div>
+                        </div>
+
+                        <!-- Menü İçi Bilgilendirme & Sipariş Kutusu -->
+                        <div class="mt-8 p-5 rounded-2xl bg-obsidian/80 border border-gold/25 text-center">
+                            <p class="text-xs text-gold font-semibold uppercase tracking-wider mb-1.5">
+                                <i class="fa-solid fa-motorcycle mr-1"></i> Online Paket Servis
+                            </p>
+                            <p class="text-xs text-neutral-400 leading-relaxed mb-4">
+                                Pilavlarımız günlük taze tereyağı ile hazırlanır. Dilediğiniz yemek uygulamasından hemen sipariş verebilirsiniz.
+                            </p>
+                            <button type="button" onclick="openPlatformModal()" class="w-full gold-btn-gradient py-2.5 px-4 rounded-full text-xs sm:text-sm font-bold flex items-center justify-center gap-2 cursor-pointer">
+                                <span>Sipariş Ver</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== 3. BÖLÜM: İLETİŞİM & ADRES (FOOTER) ==================== -->
+    <footer id="iletisim" class="bg-charcoal border-t border-gold/25 pt-14 pb-14">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-center text-center md:text-left">
+
+                <!-- Marka Özeti -->
+                <div>
+                    <div class="flex items-center justify-center md:justify-start gap-2.5 mb-3">
+                        <i class="fa-solid fa-star text-gold"></i>
+                        <span class="font-serifTitle text-2xl font-bold gold-text-gradient">Manşet Lezzet</span>
+                    </div>
+                    <p class="text-neutral-400 text-sm leading-relaxed">
+                        Nilüfer Fethiye Mahallesi'nde sıcak, taze ve doyurucu lezzetlerin buluşma noktası.
+                    </p>
+                </div>
+
+                <!-- Tam Adres Bilgisi -->
+                <div class="bg-obsidian/80 p-5 rounded-2xl border border-gold/30 text-center">
+                    <span class="text-gold text-xs font-bold uppercase tracking-widest block mb-2">
+                        <i class="fa-solid fa-location-dot mr-1"></i> Adresimiz
+                    </span>
+                    <p class="text-white font-bold text-sm sm:text-base tracking-wide">
+                        FETHİYE Mh. KELEBEK Sk. No : 81/A
+                    </p>
+                    <p class="text-gold font-semibold text-sm mt-0.5">
+                        Nilüfer / BURSA
+                    </p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Fethiye+Mahallesi+Kelebek+Sokak+No+81+Nilüfer+Bursa" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-3 text-xs font-bold text-obsidian bg-gold hover:bg-goldLight px-4 py-2 rounded-full transition">
+                        <i class="fa-solid fa-diamond-turn-right"></i>
+                        <span>Google Haritalar'da Aç</span>
+                    </a>
+                </div>
+
+                <!-- Hızlı İletişim & Sipariş -->
+                <div class="flex flex-col items-center md:items-end gap-3">
+                    <span class="text-xs uppercase tracking-widest text-neutral-400 font-semibold">
+                        Online Sipariş Kanallarımız
+                    </span>
+                    <button type="button" onclick="openPlatformModal()" class="gold-btn-gradient px-6 py-3 rounded-full text-sm font-bold flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-utensils"></i>
+                        <span>Sipariş Ver</span>
+                    </button>
+                    <p class="text-xs text-neutral-500 mt-1">
+                        Yemeksepeti & Uber Eats üzerinden hizmetinizdeyiz
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="mt-10 pt-6 border-t border-white/10 text-center text-xs text-neutral-500">
+                © 2026 Manşet Lezzet • Tüm Hakları Saklıdır. Fethiye Mh. Kelebek Sk. No: 81/A Nilüfer / Bursa
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== SİPARİŞ PLATFORMU SEÇİM PENCERESİ (MODAL) ==================== -->
+    <div id="platform-modal" onclick="handleBackdropClick(event)" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity">
+        <div class="bg-charcoal border border-gold/40 rounded-3xl w-full max-w-md overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9)] transform transition-all">
+            
+            <!-- Modal Üst Başlık -->
+            <div class="p-6 border-b border-gold/20 flex items-start justify-between bg-obsidian">
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <i class="fa-solid fa-star text-gold text-xs"></i>
+                        <span class="text-[11px] uppercase tracking-[0.2em] text-gold font-bold">Manşet Lezzet</span>
+                    </div>
+                    <h3 class="font-serifTitle text-2xl font-bold text-white">Sipariş Platformu Seçin</h3>
+                    <p id="modal-subtitle" class="text-xs text-neutral-400 mt-1.5 leading-relaxed">
+                        Manşet Lezzet lezzetlerini dilediğiniz platform üzerinden hemen sipariş verebilirsiniz.
+                    </p>
+                </div>
+                <button type="button" onclick="closePlatformModal()" class="w-9 h-9 rounded-full bg-charcoal border border-white/10 text-neutral-400 hover:text-gold hover:border-gold/40 flex items-center justify-center transition shrink-0 ml-3 cursor-pointer" aria-label="Pencereyi Kapat">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Platform Seçenekleri -->
+            <div class="p-6 space-y-4 bg-charcoal">
+                
+                <!-- 1. Yemeksepeti Seçeneği -->
+                <a id="link-yemeksepeti" href="https://www.yemeksepeti.com" target="_blank" rel="noopener noreferrer" class="group block w-full p-4 rounded-2xl bg-obsidian border border-[#FA0050]/40 hover:border-[#FA0050] hover:bg-[#FA0050]/10 transition-all duration-300 shadow-lg">
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-[#FA0050] text-white flex items-center justify-center text-xl font-extrabold shadow-md group-hover:scale-105 transition-transform shrink-0">
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-lg text-white group-hover:text-[#FF3374] transition-colors">
+                                        Yemeksepeti
+                                    </span>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#FA0050]/20 text-[#FF4D88] border border-[#FA0050]/30">
+                                        Hızlı Teslimat
+                                    </span>
+                                </div>
+                                <p class="text-xs text-neutral-400 mt-0.5">
+                                    Yemeksepeti mağazamız üzerinden sipariş ver
+                                </p>
+                            </div>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-white/5 group-hover:bg-[#FA0050] text-neutral-400 group-hover:text-white flex items-center justify-center transition-colors shrink-0">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 2. Uber Eats Seçeneği -->
+                <a id="link-ubereats" href="https://www.ubereats.com" target="_blank" rel="noopener noreferrer" class="group block w-full p-4 rounded-2xl bg-obsidian border border-[#06C167]/40 hover:border-[#06C167] hover:bg-[#06C167]/10 transition-all duration-300 shadow-lg">
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-[#06C167] text-obsidian flex items-center justify-center text-xl font-extrabold shadow-md group-hover:scale-105 transition-transform shrink-0">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-lg text-white group-hover:text-[#06C167] transition-colors">
+                                        Uber Eats
+                                    </span>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#06C167]/20 text-[#06C167] border border-[#06C167]/30">
+                                        Online Sipariş
+                                    </span>
+                                </div>
+                                <p class="text-xs text-neutral-400 mt-0.5">
+                                    Uber Eats mağazamız üzerinden sipariş ver
+                                </p>
+                            </div>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-white/5 group-hover:bg-[#06C167] text-neutral-400 group-hover:text-obsidian flex items-center justify-center transition-colors shrink-0">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+
+            <!-- Modal Alt Bilgi -->
+            <div class="px-6 py-4 bg-obsidian border-t border-white/5 flex items-center justify-between text-xs text-neutral-500">
+                <span><i class="fa-solid fa-location-dot text-gold mr-1"></i> Nilüfer / Bursa</span>
+                <button type="button" onclick="closePlatformModal()" class="text-neutral-400 hover:text-gold font-medium transition cursor-pointer">
+                    Vazgeç
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT UYGULAMA MANTIĞI ==================== -->
+    <script>
+        // Mağaza Bağlantıları (Kendi mağaza linklerinizi buraya yapıştırabilirsiniz)
+        let STORE_LINKS = {
+            yemeksepeti: "https://www.yemeksepeti.com",
+            ubereats: "https://www.ubereats.com"
+        };
+
+        // Yedek Varsayılan Menü Verileri (menu.json bulunamazsa devreye girer)
+        let menuData = [
+            { id: 1, name: "ET BURGER MENÜ", price: 260, type: "food", category: "ana", featured: true, desc: "Özel baharatlı dana burger köftesi, cheddar peyniri, çıtır patates kızartması ve soğuk içecek.", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" },
+            { id: 2, name: "İZMİR KUMRU", price: 150, type: "food", category: "ana", featured: true, desc: "Susamlı özel kumru ekmeği arasında ızgara sucuk, salam, sosis ve erimiş bol kaşar peyniri.", image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80" },
+            { id: 3, name: "KÖFTELİ WRAP", price: 190, type: "food", category: "ana", featured: false, desc: "Lavaş ekmeğinde ızgara köfte ve garnitür", image: "" },
+            { id: 4, name: "YARIM EKMEK KÖFTE", price: 170, type: "food", category: "ana", featured: false, desc: "Taze ekmek arası ızgara köfte", image: "" },
+            { id: 5, name: "TEREYAĞLI SADE PİLAV", price: 100, type: "food", category: "pilav", featured: false, desc: "Gerçek tereyağlı tane tane pirinç pilavı", image: "" },
+            { id: 6, name: "TEREYAĞLI TAVUKLU PİLAV", price: 140, type: "food", category: "pilav", featured: true, desc: "Gerçek tereyağı ile demlenmiş tane tane pirinç pilavı üzerinde bol didiklenmiş tavuk göğsü.", image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80" },
+            { id: 7, name: "TEREYAĞLI NOHUTLU PİLAV", price: 120, type: "food", category: "pilav", featured: false, desc: "Tereyağlı pilav ve yumuşak nohut", image: "" },
+            { id: 8, name: "TEREYAĞLI KARIŞIK PİLAV", price: 180, type: "food", category: "pilav", featured: false, desc: "Tavuk ve nohut bir arada bol porsiyon", image: "" },
+            { id: 9, name: "YARIM EKMEK KARIŞIK TOST", price: 140, type: "food", category: "tost", featured: false, desc: "Sucuk ve bol kaşar peynirli", image: "" },
+            { id: 10, name: "YARIM EKMEK SUCUKLU TOST", price: 100, type: "food", category: "tost", featured: false, desc: "Özel kasap sucuklu sıcak tost", image: "" },
+            { id: 11, name: "YARIM EKMEK KAŞARLI PATSO", price: 100, type: "food", category: "tost", featured: false, desc: "Çıtır patates kızartması ve erimiş kaşar", image: "" },
+            { id: 12, name: "ELMA DİLİM PATATES", price: 90, type: "food", category: "tost", featured: false, desc: "Baharatlı sıcak elma dilim patates", image: "" },
+            { id: 13, name: "AYRAN", price: 30, type: "drink", category: "icecek", featured: false, desc: "Soğuk", image: "" },
+            { id: 14, name: "KUTU COLA", price: 60, type: "drink", category: "icecek", featured: false, desc: "330 ml", image: "" },
+            { id: 15, name: "KUTU FANTA", price: 20, type: "drink", category: "icecek", featured: false, desc: "Soğuk", image: "" },
+            { id: 16, name: "SODA", price: 30, type: "drink", category: "icecek", featured: false, desc: "Sade maden suyu", image: "" },
+            { id: 17, name: "ÇAY", price: 20, type: "drink", category: "icecek", featured: false, desc: "Taze demleme", image: "" },
+            { id: 18, name: "NESCAFE", price: 25, type: "drink", category: "icecek", featured: false, desc: "Sıcak", image: "" },
+            { id: 19, name: "SU", price: 20, type: "drink", category: "icecek", featured: false, desc: "0.5 lt", image: "" }
+        ];
+
+        let currentFilter = "all";
+
+        // Python Uygulamasının Güncellediği menu.json Dosyasını Okur
+        async function loadMenuFromJson() {
+            try {
+                const response = await fetch('menu.json?v=' + Date.now());
+                if (response.ok) {
+                    const data = await response.json();
+                    if (Array.isArray(data) && data.length > 0) {
+                        menuData = data;
+                    } else if (data && Array.isArray(data.items) && data.items.length > 0) {
+                        menuData = data.items;
+                    }
+                }
+            } catch (err) {
+                console.warn("menu.json okunamadı, varsayılan menü gösteriliyor:", err);
+            }
+            renderAll();
+        }
+
+        function renderAll() {
+            renderFeaturedCards();
+            renderMenu(currentFilter);
+            const ysEl = document.getElementById("link-yemeksepeti");
+            const ueEl = document.getElementById("link-ubereats");
+            if (ysEl) ysEl.href = STORE_LINKS.yemeksepeti;
+            if (ueEl) ueEl.href = STORE_LINKS.ubereats;
+        }
+
+        // Ana Sayfa Vitrin Kartlarını Çiz
+        function renderFeaturedCards() {
+            const grid = document.getElementById("featured-grid");
+            if (!grid) return;
+            const featuredItems = menuData.filter(item => item.featured);
+            const listToShow = featuredItems.length > 0 ? featuredItems : menuData.slice(0, 3);
+
+            grid.innerHTML = listToShow.map(item => {
+                const imgUrl = item.image || `https://placehold.co/600x400/171A18/E5B94C?text=${encodeURIComponent(item.name)}`;
+                return `
+                    <div class="group bg-cardDark/90 border border-gold/25 hover:border-gold rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 shadow-2xl">
+                        <div>
+                            <div class="relative h-52 rounded-2xl overflow-hidden mb-5 bg-obsidian border border-white/5">
+                                <img src="${imgUrl}"
+                                     onerror="this.src='https://placehold.co/600x400/171A18/E5B94C?text=${encodeURIComponent(item.name)}'"
+                                     alt="${item.name}"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-3 left-3 bg-obsidian/90 text-gold text-xs font-bold px-3 py-1 rounded-full border border-gold/30">
+                                    Öne Çıkan
+                                </span>
+                                <span class="absolute bottom-3 right-3 bg-gold text-obsidian font-extrabold text-sm px-3.5 py-1 rounded-full shadow-lg">
+                                    ${item.price} ₺
+                                </span>
+                            </div>
+                            <h3 class="font-serifTitle text-2xl font-bold text-white group-hover:text-gold transition-colors">
+                                ${item.name}
+                            </h3>
+                            <p class="text-neutral-400 text-sm mt-2 leading-relaxed">
+                                ${item.desc || 'Manşet Lezzet özel tarifiyle günlük taze hazırlanır.'}
+                            </p>
+                        </div>
+                        <div class="mt-6">
+                            <button type="button" onclick="openPlatformModal('${item.name.replace(/'/g, "\\'")}')" class="w-full gold-btn-gradient py-3 rounded-full font-bold text-sm flex items-center justify-center gap-2 cursor-pointer">
+                                <span>Sipariş Ver</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        // Sayfa Yüklendiğinde Başlat
+        document.addEventListener("DOMContentLoaded", () => {
+            loadMenuFromJson();
+        });
+
+        // Ana Sayfa ve Menü Sayfası Arası Geçiş Fonksiyonu
+        function switchPage(pageName) {
+            const homeSection = document.getElementById("anasayfa");
+            const menuSection = document.getElementById("menu");
+            const navLinks = document.querySelectorAll(".nav-link");
+
+            if (pageName === "menu") {
+                homeSection.classList.add("hidden");
+                menuSection.classList.remove("hidden");
+            } else {
+                menuSection.classList.add("hidden");
+                homeSection.classList.remove("hidden");
+            }
+
+            navLinks.forEach(link => {
+                if (link.dataset.nav === pageName) {
+                    link.classList.remove("text-neutral-300", "font-medium");
+                    link.classList.add("text-gold", "font-bold");
+                } else {
+                    link.classList.remove("text-gold", "font-bold");
+                    link.classList.add("text-neutral-300", "font-medium");
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        // Menüyü Render Etme Fonksiyonu
+        function renderMenu(filterCategory) {
+            currentFilter = filterCategory;
+            const foodListEl = document.getElementById("food-list");
+            const drinkListEl = document.getElementById("drink-list");
+            const foodColEl = document.getElementById("food-column");
+            const drinkColEl = document.getElementById("drink-column");
+
+            if (!foodListEl || !drinkListEl) return;
+
+            foodListEl.innerHTML = "";
+            drinkListEl.innerHTML = "";
+
+            const filteredItems = filterCategory === "all"
+                ? menuData
+                : menuData.filter(item => item.category === filterCategory);
+
+            const foods = filteredItems.filter(item => item.type === "food" || item.category !== "icecek");
+            const drinks = filteredItems.filter(item => item.type === "drink" || item.category === "icecek");
+
+            if (foodColEl) foodColEl.style.display = foods.length > 0 ? "block" : "none";
+            if (drinkColEl) drinkColEl.style.display = drinks.length > 0 ? "block" : "none";
+
+            foods.forEach(item => {
+                foodListEl.appendChild(createMenuItemRow(item));
+            });
+
+            drinks.forEach(item => {
+                drinkListEl.appendChild(createMenuItemRow(item));
+            });
+        }
+
+        // Tekil Menü Satırı Oluşturucu
+        function createMenuItemRow(item) {
+            const row = document.createElement("div");
+            row.className = "group flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/[0.03] transition-colors gap-3";
+
+            const thumbHtml = item.image
+                ? `<img src="${item.image}" alt="${item.name}" class="w-11 h-11 rounded-xl object-cover border border-gold/25 shrink-0">`
+                : "";
+
+            row.innerHTML = `
+                <div class="flex items-center gap-3 pr-1 min-w-0">
+                    ${thumbHtml}
+                    <div class="flex flex-col min-w-0">
+                        <span class="font-bold text-sm sm:text-base text-neutral-100 group-hover:text-gold transition-colors tracking-wide truncate">
+                            ${item.name}
+                        </span>
+                        <span class="text-[11px] text-neutral-500 hidden sm:inline truncate">
+                            ${item.desc || ''}
+                        </span>
+                    </div>
+                </div>
+                <div class="menu-leader"></div>
+                <div class="shrink-0">
+                    <span class="font-extrabold text-base sm:text-lg text-gold">
+                        ${item.price} ₺
+                    </span>
+                </div>
+            `;
+            return row;
+        }
+
+        // Kategori Filtreleme
+        function filterMenu(category) {
+            const buttons = document.querySelectorAll(".filter-btn");
+            buttons.forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.className = "filter-btn active px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-gold text-obsidian transition cursor-pointer";
+                } else {
+                    btn.className = "filter-btn px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-charcoal text-neutral-300 border border-gold/25 hover:border-gold transition cursor-pointer";
+                }
+            });
+            renderMenu(category);
+        }
+
+        // Sipariş Platformu Seçim Penceresini Aç
+        function openPlatformModal(selectedDishName) {
+            const modal = document.getElementById("platform-modal");
+            const subtitle = document.getElementById("modal-subtitle");
+
+            if (selectedDishName) {
+                subtitle.innerHTML = `<span class="text-gold font-semibold">${selectedDishName}</span> ve diğer lezzetlerimiz için sipariş platformunu seçin:`;
+            } else {
+                subtitle.textContent = "Manşet Lezzet lezzetlerini dilediğiniz platform üzerinden hemen sipariş verebilirsiniz.";
+            }
+
+            modal.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+        }
+
+        // Sipariş Platformu Seçim Penceresini Kapat
+        function closePlatformModal() {
+            const modal = document.getElementById("platform-modal");
+            modal.classList.add("hidden");
+            document.body.style.overflow = "";
+        }
+
+        // Pencere Dışına Tıklanınca Kapat
+        function handleBackdropClick(event) {
+            if (event.target.id === "platform-modal") {
+                closePlatformModal();
+            }
+        }
+
+        // ESC Tuşuna Basılınca Pencereyi Kapat
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                closePlatformModal();
+            }
+        });
+    </script>
+</body>
+</html>

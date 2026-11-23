@@ -1,0 +1,192 @@
+[
+  {
+    "id": 1,
+    "name": "BURGER KY",
+    "price": 260,
+    "type": "food",
+    "category": "ana",
+    "featured": true,
+    "desc": "Özel baharatlı dana burger köftesi, cheddar peyniri, çıtır patates kızartması ve soğuk içecek.",
+    "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": 2,
+    "name": "İZMİR KUMRU",
+    "price": 150,
+    "type": "food",
+    "category": "ana",
+    "featured": true,
+    "desc": "Susamlı özel kumru ekmeği arasında ızgara sucuk, salam, sosis ve erimiş bol kaşar peyniri.",
+    "image": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": 3,
+    "name": "KÖFTELİ WRAP",
+    "price": 190,
+    "type": "food",
+    "category": "ana",
+    "featured": false,
+    "desc": "Lavaş ekmeğinde ızgara köfte ve garnitür",
+    "image": ""
+  },
+  {
+    "id": 4,
+    "name": "YARIM EKMEK KÖFTE",
+    "price": 170,
+    "type": "food",
+    "category": "ana",
+    "featured": false,
+    "desc": "Taze ekmek arası ızgara köfte",
+    "image": ""
+  },
+  {
+    "id": 5,
+    "name": "TEREYAĞLI SADE PİLAV",
+    "price": 100,
+    "type": "food",
+    "category": "pilav",
+    "featured": false,
+    "desc": "Gerçek tereyağlı tane tane pirinç pilavı",
+    "image": ""
+  },
+  {
+    "id": 6,
+    "name": "TEREYAĞLI TAVUKLU PİLAV",
+    "price": 140,
+    "type": "food",
+    "category": "pilav",
+    "featured": true,
+    "desc": "Gerçek tereyağı ile demlenmiş tane tane pirinç pilavı üzerinde bol didiklenmiş tavuk göğsü.",
+    "image": "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": 7,
+    "name": "TEREYAĞLI NOHUTLU PİLAV",
+    "price": 120,
+    "type": "food",
+    "category": "pilav",
+    "featured": false,
+    "desc": "Tereyağlı pilav ve yumuşak nohut",
+    "image": ""
+  },
+  {
+    "id": 8,
+    "name": "TEREYAĞLI KARIŞIK PİLAV",
+    "price": 180,
+    "type": "food",
+    "category": "pilav",
+    "featured": false,
+    "desc": "Tavuk ve nohut bir arada bol porsiyon",
+    "image": ""
+  },
+  {
+    "id": 9,
+    "name": "YARIM EKMEK KARIŞIK TOST",
+    "price": 140,
+    "type": "food",
+    "category": "tost",
+    "featured": false,
+    "desc": "Sucuk ve bol kaşar peynirli",
+    "image": ""
+  },
+  {
+    "id": 10,
+    "name": "YARIM EKMEK SUCUKLU TOST",
+    "price": 100,
+    "type": "food",
+    "category": "tost",
+    "featured": false,
+    "desc": "Özel kasap sucuklu sıcak tost",
+    "image": ""
+  },
+  {
+    "id": 11,
+    "name": "YARIM EKMEK KAŞARLI PATSO",
+    "price": 100,
+    "type": "food",
+    "category": "tost",
+    "featured": false,
+    "desc": "Çıtır patates kızartması ve erimiş kaşar",
+    "image": ""
+  },
+  {
+    "id": 12,
+    "name": "ELMA DİLİM PATATES",
+    "price": 90,
+    "type": "food",
+    "category": "tost",
+    "featured": false,
+    "desc": "Baharatlı sıcak elma dilim patates",
+    "image": ""
+  },
+  {
+    "id": 13,
+    "name": "AYRAN",
+    "price": 30,
+    "type": "drink",
+    "category": "icecek",
+    "featured": false,
+    "desc": "Soğuk",
+    "image": ""
+  },
+  {
+    "id": 14,
+    "name": "KUTU COLA",
+    "price": 60,
+    "type": "drink",
+    "category": "icecek",
+    "featured": false,
+    "desc": "330 ml",
+    "image": ""
+  },
+  {
+    "id": 15,
+    "name": "KUTU FANTA",
+    "price": 20,
+    "type": "drink",
+    "category": "icecek",
+    "featured": false,
+    "desc": "Soğuk",
+    "image": ""
+  },
+  {
+    "id": 16,
+    "name": "SODA",
+    "price": 30,
+    "type": "drink",
+    "category": "icecek",
+    "featured": false,
+    "desc": "Sade maden suyu",
+    "image": ""
+  },
+  {
+    "id": 17,
+    "name": "ÇAY",
+    "price": 20,
+    "type": "drink",
+    "category": "icecek",
+    "featured": false,
+    "desc": "Taze demleme",
+    "image": ""
+  },
+  {
+    "id": 18,
+    "name": "NESCAFE",
+    "price": 25,
+    "type": "drink",
+    "category": "icecek",
+    "featured": false,
+    "desc": "Sıcak",
+    "image": ""
+  },
+  {
+    "id": 19,
+    "name": "SU",
+    "price": 20,
+    "type": "drink",
+    "category": "icecek",
+    "featured": false,
+    "desc": "0.5 lt",
+    "image": ""
+  }
+]
