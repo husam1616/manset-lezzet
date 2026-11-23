@@ -458,19 +458,31 @@
         let currentFilter = "all";
 
         // Python Uygulamasının Güncellediği menu.json Dosyasını Okur
+// Cloudflare build süresini beklemeden 2-3 saniyede anlık güncelleme sağlar
+        const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/KULLANICI_ADIN/manset-lezzet/main";
+
         async function loadMenuFromJson() {
             try {
-                const response = await fetch('menu.json?v=' + Date.now());
+                // Önce anlık GitHub CDN'den çek (2-3 sn içinde güncellenir)
+                let response = await fetch(`${GITHUB_RAW_BASE}/menu.json?t=${Date.now()}`, { cache: "no-store" });
+                if (!response.ok) {
+                    response = await fetch(`menu.json?v=${Date.now()}`);
+                }
                 if (response.ok) {
                     const data = await response.json();
-                    if (Array.isArray(data) && data.length > 0) {
-                        menuData = data;
-                    } else if (data && Array.isArray(data.items) && data.items.length > 0) {
-                        menuData = data.items;
+                    const items = Array.isArray(data) ? data : (data.items || []);
+                    if (items.length > 0) {
+                        // Göreli resim yollarını (resimler/...) anlık CDN adresine çevir
+                        menuData = items.map(item => ({
+                            ...item,
+                            image: (item.image && item.image.startsWith("resimler/"))
+                                ? `${GITHUB_RAW_BASE}/${item.image}`
+                                : item.image
+                        }));
                     }
                 }
             } catch (err) {
-                console.warn("menu.json okunamadı, varsayılan menü gösteriliyor:", err);
+                console.warn("Anlık menü çekilemedi:", err);
             }
             renderAll();
         }
